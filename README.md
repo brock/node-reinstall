@@ -1,6 +1,6 @@
 # Node Re-install
 
-Complete Node Reinstall. See the [SO article](http://stackoverflow.com/a/11178106/2083544) for reference. This deletes everything, yes everything, and re-installs Node and NPM with NVM, then re-installs global NPM modules.
+Complete Node Reinstall. See the [SO article](http://stackoverflow.com/a/11178106/2083544) for reference and the related [gist that spawned this repo](https://gist.github.com/brock/5b1b70590e1171c4ab54). This deletes everything, yes everything, and re-installs Node and NPM with NVM, then re-installs global NPM modules.
 
 ## Installation
 
