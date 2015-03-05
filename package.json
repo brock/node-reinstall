@@ -1,0 +1,9 @@
+{
+  "name": "nodereinstall",
+  "version": "0.0.1",
+  "description": "Complete Node Reinstall. This deletes everything, yes everything, and re-installs Node and NPM with NVM, then re-installs global NPM modules.",
+  "global": "true",
+  "install": "install -b nodereinstall.sh ${PREFIX:-/usr/local}/bin/nodereinstall",
+  "scripts": [ "nodereinstall.sh" ]
+}
+
