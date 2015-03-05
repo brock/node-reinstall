@@ -4,10 +4,18 @@ Complete Node Reinstall. See the [SO article](http://stackoverflow.com/a/1117810
 
 ## Installation
 
+With [bpkg](https://github.com/bpkg/bpkg):
+
+```sh
+$ bpkg install brock/node-reinstall
 ```
-git clone git@github.com:brock/node-reinstall.git
-cp node-reinstall/nodereinstall.sh ~/bin/nodereinstall
-chmod +x ~/bin/nodereinstall
+
+Or from source:
+
+```
+$ git clone git@github.com:brock/node-reinstall.git
+$ cp node-reinstall/nodereinstall.sh ~/bin/nodereinstall
+$ chmod +x ~/bin/nodereinstall
 ```
 
 ## Usage
