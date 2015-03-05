@@ -51,5 +51,3 @@ echo "Reinstalling your global npm modules:"
 echo $GLOBAL_MODULES
 
 npm install --global $GLOBAL_MODULES
-fi
-fi
