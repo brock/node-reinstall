@@ -3,5 +3,6 @@
   "version": "0.0.1",
   "description": "Completely re-install Node, NPM and NVM",
   "scripts": [ "nodereinstall.sh" ],
-  "install": "make install"
+  "install": "make install",
+  "global": true
 }
