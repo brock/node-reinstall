@@ -16,7 +16,22 @@ USE_NVM=1
 NODE_VERSION="0.10"
 
 usage () {
-  echo "usage: nodereinstall [-hV] [version]"
+  printf "%s\n" "node-reinstall"
+  printf "\t%s\n" "completely re-installs Node & NPM and any global node modules."
+  printf "\t%s\n" "It re-installs Node using NVM or Nave"
+  printf "\n"
+  printf "%s\t%s\n" "Usage:" "node-reinstall [--nave|--nvm] [-h|--help] [-v|--version] [NODE_VERSION]"
+  printf "\n"
+  printf "%s\n" "Commands:"
+  printf "\n"
+  printf "%s\t\t\t%s\n" "node-reinstall" "re-install node and npm using nvm"
+  printf "%s %s %s\t%s\n" "node-reinstall" "-h" "[--help]" "show help"
+  printf "%s %s %s\t%s\n" "node-reinstall" "-v" "[--version]" "show the node-reinstall version number"
+  printf "%s %s\t\t%s\n" "node-reinstall" "--nave" "re-install using nave"
+  printf "%s %s\t\t%s\n" "node-reinstall" "--npm" "re-install using nvm (the default)"
+  printf "%s %s\t\t%s\n" "node-reinstall" "0.12" "specify a default node version (currently ${NODE_VERSION})"
+  printf "\n"
+  printf "%s\t%s\n\n" "Source:" "http://github.com/brock/node-reinstall"
 }
 
 ## parse opts
