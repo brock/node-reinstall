@@ -1,5 +1,5 @@
 #!/bin/bash
-# nodereinstall
+# node-reinstall
 # credit: http://stackoverflow.com/a/11178106/2083544
 
 ## program version
