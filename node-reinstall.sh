@@ -2,9 +2,6 @@
 # nodereinstall
 # credit: http://stackoverflow.com/a/11178106/2083544
 
-# get sudo
-sudo -v
-
 ## program version
 VERSION="0.0.1"
 
@@ -59,6 +56,9 @@ usage () {
   done
 
 }
+
+# get sudo
+sudo -v
 
 # check to see if npm is installed
 IS_NPM_MISSING=$(which npm)
