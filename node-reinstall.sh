@@ -28,7 +28,7 @@ usage () {
   printf "%s %s %s\t%s\n" "node-reinstall" "-h" "[--help]" "show help"
   printf "%s %s %s\t%s\n" "node-reinstall" "-v" "[--version]" "show the node-reinstall version number"
   printf "%s %s\t\t%s\n" "node-reinstall" "--nave" "re-install using nave"
-  printf "%s %s\t\t%s\n" "node-reinstall" "--npm" "re-install using nvm (the default)"
+  printf "%s %s\t\t%s\n" "node-reinstall" "--nvm" "re-install using nvm (the default)"
   printf "%s %s\t\t%s\n" "node-reinstall" "0.12" "specify a default node version (currently ${NODE_VERSION})"
   printf "\n"
   printf "%s\t%s\n\n" "Source:" "http://github.com/brock/node-reinstall"
