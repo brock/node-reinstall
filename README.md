@@ -14,7 +14,7 @@ Or from source:
 
 ```
 $ git clone git@github.com:brock/node-reinstall.git
-$ cp node-reinstall/nodereinstall.sh ~/bin/nodereinstall
+$ cp node-reinstall/node-reinstall.sh ~/bin/node-reinstall
 ```
 
 ## Usage
