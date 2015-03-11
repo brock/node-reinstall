@@ -7,7 +7,7 @@ Complete Node Reinstall. See the [SO article](http://stackoverflow.com/a/1117810
 With [bpkg](https://github.com/bpkg/bpkg):
 
 ```sh
-$ bpkg install brock/node-reinstall
+$ bpkg install -g brock/node-reinstall
 ```
 
 Or from source:

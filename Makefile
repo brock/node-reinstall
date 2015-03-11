@@ -1,8 +1,8 @@
-BIN ?= nodereinstall
+BIN ?= node-reinstall
 PREFIX ?= /usr/local
 
 install:
-	cp nodereinstall.sh $(PREFIX)/bin/$(BIN)
+	cp node-reinstall.sh $(PREFIX)/bin/$(BIN)
 
 uninstall:
 	rm -f $(PREFIX)/bin/$(BIN)
