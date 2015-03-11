@@ -1,6 +1,6 @@
 # Node Re-install
 
-Complete Node Reinstall. See the [SO article](http://stackoverflow.com/a/11178106/2083544) for reference and the related [gist that spawned this repo](https://gist.github.com/brock/5b1b70590e1171c4ab54). This deletes everything, yes everything, and re-installs Node and NPM with NVM, then re-installs global NPM modules.
+Complete Node Reinstall. See the [SO article](http://stackoverflow.com/a/11178106/2083544) for reference and the related [gist that spawned this repo](https://gist.github.com/brock/5b1b70590e1171c4ab54). This deletes everything, yes everything, and re-installs Node and NPM with NVM (or Nave), then re-installs any global NPM modules already installed.
 
 ## Installation
 
@@ -18,4 +18,19 @@ $ cp node-reinstall/nodereinstall.sh ~/bin/nodereinstall
 ```
 
 ## Usage
-Whenever you feel like you need to completely re-install Node, NPM or NVM, simply run the command `nodereinstall`. You'll be prompted for sudo priviledges since this will remove all possible installation paths. Feel free to update this script if it deletes directories in excess. Pull requests welcome.
+
+Whenever you feel like you need to completely re-install Node and NPM, simply run the command `node-reinstall`. You'll be prompted for sudo privileges since this will remove all possible installation paths. Feel free to update this script if it deletes directories in excess. Pull requests welcome.
+
+
+    Usage:  node-reinstall [--nave|--nvm] [-h|--help] [-v|--version] [NODE_VERSION]
+
+## Commands
+
+	node-reinstall                re-install node and npm using nvm
+	node-reinstall -h [--help]    show help
+	node-reinstall -v [--version] show the node-reinstall version number
+	node-reinstall --nave         re-install using nave
+	node-reinstall --nvm          re-install using nvm (the default)
+	node-reinstall 0.12           specify a default node version (currently 0.10)
+
+View the [node-reinstall project page](http://www.bpkg.io/pkg/node-reinstall/) at http://www.bpkg.io/pkg/node-reinstall/
