@@ -126,13 +126,16 @@ if (( $USE_NVM )); then
   nvm install $NODE_VERSION
   nvm alias default $NODE_VERSION
   if test -f $HOME/.zshrc; then
-    # you must "source" the NVM exports - yours are most likely in ~/.zshrc or ~/.bashrc or ~/.bash_profile
+    # you must "source" the NVM exports - yours are most likely in ~/.zshrc or ~/.bashrc or ~/.bash_profile and ~/.profile
     source $HOME/.zshrc
   elif test -f $HOME/.bashrc; then
      # source $HOME/.bashrc
     :
   elif test -f $HOME/.bash_profile; then
     # source $HOME/.bash_profile
+    :
+  elif test -f $HOME/.profile; then
+    # source $HOME/.profile
     :
   fi
 elif (( $USE_NAVE )); then
