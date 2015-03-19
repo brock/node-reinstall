@@ -20,7 +20,7 @@ usage () {
   printf "\t%s\n" "completely re-installs Node & NPM and any global node modules."
   printf "\t%s\n" "It re-installs Node using NVM or Nave"
   printf "\n"
-  printf "%s\t%s\n" "Usage:" "node-reinstall [--nave|--nvm] [-h|--help] [-v|--version] [NODE_VERSION]"
+  printf "%s\t%s\n" "Usage:" "node-reinstall [--nave|--nvm|--nvm-latest] [-h|--help] [-v|--version] [NODE_VERSION]"
   printf "\n"
   printf "%s\n" "Commands:"
   printf "\n"

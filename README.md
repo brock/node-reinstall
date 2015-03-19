@@ -22,7 +22,7 @@ $ cp node-reinstall/node-reinstall.sh ~/bin/node-reinstall
 Whenever you feel like you need to completely re-install Node and NPM, simply run the command `node-reinstall`. You'll be prompted for sudo privileges since this will remove all possible installation paths. Feel free to update this script if it deletes directories in excess. Pull requests welcome.
 
 
-    Usage:  node-reinstall [--nave|--nvm] [-h|--help] [-v|--version] [NODE_VERSION]
+    Usage:  node-reinstall [--nave|--nvm|--nvm-latest] [-h|--help] [-v|--version] [NODE_VERSION]
 
 ## Commands
 
