@@ -31,7 +31,7 @@ Whenever you feel like you need to completely re-install Node and NPM, simply ru
 	node-reinstall -v [--version] show the node-reinstall version number
 	node-reinstall --nave         re-install using nave
 	node-reinstall --nvm          re-install using stable nvm version (this is the default)
-	node-reinstall --nvm-latest   re-install using latest nvm version (the master branch at creationix/nvm)
+	node-reinstall --nvm-latest   re-install using latest nvm version (creationix/nvm:master)
 	node-reinstall 0.12           specify a default node version (currently 0.10)
 
 View the [node-reinstall project page](http://www.bpkg.io/pkg/node-reinstall/) at http://www.bpkg.io/pkg/node-reinstall/
