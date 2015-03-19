@@ -59,6 +59,12 @@ usage () {
         USE_NAVE=0
         ;;
 
+      --nvm-latest)
+        USE_NVM=1
+        USE_NAVE=0
+        STABLE=master
+        ;;
+
       *)
         if [ "-" == "${opt:0:1}" ]; then
           echo >&2 "error: Unknown option \`$opt'"
@@ -114,7 +120,9 @@ sudo rm -rf $HOME/.npm
 if (( $USE_NVM )); then
   # go home and install NVM just because I feel safe there
   cd $HOME
-  curl -sL https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
+  # get the latest stable version number of nvm from the repo's homepage
+  [ "$STABLE" == "" ] && STABLE=$(curl -s https://github.com/creationix/nvm/ | grep "curl https://raw.githubusercontent.com/creationix/nvm/" | grep -oE "v\d+\.\d+\.\d+")
+  curl -sL https://raw.githubusercontent.com/creationix/nvm/$STABLE/install.sh | bash
   source $HOME/.nvm/nvm.sh
 elif (( $USE_NAVE )); then
   curl -sL https://raw.githubusercontent.com/isaacs/nave/master/nave.sh -o $PREFIX/bin/nave
