@@ -22,16 +22,14 @@ $ cp node-reinstall/node-reinstall.sh ~/bin/node-reinstall
 Whenever you feel like you need to completely re-install Node and NPM, simply run the command `node-reinstall`. You'll be prompted for sudo privileges since this will remove all possible installation paths. Feel free to update this script if it deletes directories in excess. Pull requests welcome.
 
 
-    Usage:  node-reinstall [--nave|--nvm|--nvm-latest] [-h|--help] [-v|--version] [NODE_VERSION]
+    Usage:	node-reinstall [--nave|--nvm|--nvm-latest] [-h|--help] [-v|--version] [NODE_VERSION]
 
 ## Commands
 
-	node-reinstall                re-install node and npm using nvm
-	node-reinstall -h [--help]    show help
-	node-reinstall -v [--version] show the node-reinstall version number
-	node-reinstall --nave         re-install using nave
-	node-reinstall --nvm          re-install using stable nvm version (this is the default)
-	node-reinstall --nvm-latest   re-install using latest nvm version (creationix/nvm:master)
-	node-reinstall 0.12           specify a default node version (currently 0.10)
-
-View the [node-reinstall project page](http://www.bpkg.io/pkg/node-reinstall/) at http://www.bpkg.io/pkg/node-reinstall/
+	node-reinstall					re-install node and npm using nvm
+	node-reinstall -h [--help]		show help
+	node-reinstall -v [--version]	show the node-reinstall version number
+	node-reinstall --nave			re-install using nave
+	node-reinstall --nvm			re-install using stable nvm - the default
+	node-reinstall --nvm-latest		re-install using latest nvm - creationix/nvm:master
+	node-reinstall 0.12				specify a default node version - currently 0.10

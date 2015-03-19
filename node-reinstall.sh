@@ -24,15 +24,14 @@ usage () {
   printf "\n"
   printf "%s\n" "Commands:"
   printf "\n"
-  printf "%s\t\t\t%s\n" "node-reinstall" "re-install node and npm using nvm"
-  printf "%s %s %s\t%s\n" "node-reinstall" "-h" "[--help]" "show help"
-  printf "%s %s %s\t%s\n" "node-reinstall" "-v" "[--version]" "show the node-reinstall version number"
-  printf "%s %s\t\t%s\n" "node-reinstall" "--nave" "re-install using nave"
-  printf "%s %s\t\t%s\n" "node-reinstall" "--nvm" "re-install using stable nvm (the default)"
-  printf "%s %s\t%s\n" "node-reinstall" "--nvm-latest" "re-install using latest nvm (creationix/nvm:master)"
-  printf "%s %s\t\t%s\n" "node-reinstall" "0.12" "specify a default node version (currently ${NODE_VERSION})"
+  printf "\t%s\t\t\t%s\n" "node-reinstall" "re-install node and npm using nvm"
+  printf "\t%s %s %s\t%s\n" "node-reinstall" "-h" "[--help]" "show help"
+  printf "\t%s %s %s\t%s\n" "node-reinstall" "-v" "[--version]" "show the node-reinstall version number"
+  printf "\t%s %s\t\t%s\n" "node-reinstall" "--nave" "re-install using nave"
+  printf "\t%s %s\t\t%s\n" "node-reinstall" "--nvm" "re-install using stable nvm - the default"
+  printf "\t%s %s\t%s\n" "node-reinstall" "--nvm-latest" "re-install using latest nvm - creationix/nvm:master"
+  printf "\t%s %s\t\t%s\n" "node-reinstall" "0.12" "specify a default node version - currently ${NODE_VERSION}"
   printf "\n"
-  printf "%s\t%s\n\n" "Source:" "http://github.com/brock/node-reinstall"
 }
 
 ## parse opts
