@@ -28,7 +28,8 @@ usage () {
   printf "%s %s %s\t%s\n" "node-reinstall" "-h" "[--help]" "show help"
   printf "%s %s %s\t%s\n" "node-reinstall" "-v" "[--version]" "show the node-reinstall version number"
   printf "%s %s\t\t%s\n" "node-reinstall" "--nave" "re-install using nave"
-  printf "%s %s\t\t%s\n" "node-reinstall" "--nvm" "re-install using nvm (the default)"
+  printf "%s %s\t\t%s\n" "node-reinstall" "--nvm" "re-install using stable nvm (the default)"
+  printf "%s %s\t\t%s\n" "node-reinstall" "--nvm-latest" "re-install using latest nvm (creationix/nvm:master)"
   printf "%s %s\t\t%s\n" "node-reinstall" "0.12" "specify a default node version (currently ${NODE_VERSION})"
   printf "\n"
   printf "%s\t%s\n\n" "Source:" "http://github.com/brock/node-reinstall"
@@ -57,6 +58,12 @@ usage () {
       --nvm)
         USE_NVM=1
         USE_NAVE=0
+        ;;
+
+      --nvm-latest)
+        USE_NVM=1
+        USE_NAVE=0
+        STABLE=master
         ;;
 
       *)
@@ -114,7 +121,9 @@ sudo rm -rf $HOME/.npm
 if (( $USE_NVM )); then
   # go home and install NVM just because I feel safe there
   cd $HOME
-  curl -sL https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
+  # get the latest stable version number of nvm from the repo's homepage
+  [ "$STABLE" == "" ] && STABLE=$(curl -s https://github.com/creationix/nvm/ | grep "curl https://raw.githubusercontent.com/creationix/nvm/" | grep -oE "v\d+\.\d+\.\d+")
+  curl -sL https://raw.githubusercontent.com/creationix/nvm/$STABLE/install.sh | bash
   source $HOME/.nvm/nvm.sh
 elif (( $USE_NAVE )); then
   curl -sL https://raw.githubusercontent.com/isaacs/nave/master/nave.sh -o $PREFIX/bin/nave
