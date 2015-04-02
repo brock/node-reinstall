@@ -3,7 +3,7 @@
 # credit: http://stackoverflow.com/a/11178106/2083544
 
 ## program version
-VERSION="0.0.4"
+VERSION="0.0.5"
 
 ## path prefix
 PREFIX="${PREFIX:-/usr/local}"
@@ -171,7 +171,8 @@ elif (( $USE_NAVE )); then
   nave usemain $NODE_VERSION
 fi
 
-echo "Reinstalling your global npm modules:"
-echo $GLOBAL_MODULES
-
-npm install --global $GLOBAL_MODULES
+if [ ${#GLOBAL_MODULES[@]} -gt 0 ]; then
+  echo "Reinstalling your global npm modules:"
+  echo $GLOBAL_MODULES
+  npm install --global $GLOBAL_MODULES
+fi
