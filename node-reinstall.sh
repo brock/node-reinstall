@@ -3,7 +3,7 @@
 # credit: http://stackoverflow.com/a/11178106/2083544
 
 ## program version
-VERSION="0.0.5"
+VERSION="0.0.6"
 
 ## path prefix
 PREFIX="${PREFIX:-/usr/local}"
@@ -111,7 +111,7 @@ fi
 sudo rm -rf ~/{local,lib,include,node*,npm,.npm*}
 sudo rm -rf $PREFIX/lib/node*
 sudo rm -rf $PREFIX/include/node*
-sudo rm -rf $PREFIX/bin/{node*,npm}
+sudo rm -rf $PREFIX/bin/{node,npm}
 sudo rm -rf $PREFIX/bin/npm
 sudo rm -rf $PREFIX/share/man/man1/node.1
 sudo rm -rf $PREFIX/lib/dtrace/node.d
