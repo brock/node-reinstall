@@ -1,6 +1,6 @@
 {
   "name": "node-reinstall",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Completely re-install Node, NPM and NVM",
   "scripts": [ "node-reinstall.sh" ],
   "install": "make install",
