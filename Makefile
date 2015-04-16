@@ -10,7 +10,8 @@ uninstall:
 
 readme:
 	perl -pi -w -e "s/Usage:.*/$(USAGE)/" README.md
-	sed -i -e '/Commands/,$$ d' README.md
+	sed '/Commands/,$$ d' README.md > changes.md
+	mv changes.md README.md
 	echo "## Commands" >> README.md
 	echo '' >> README.md
 	./node-reinstall.sh -h | sed -n -e '/Commands:/,// p' | tail -n +3 >> README.md
