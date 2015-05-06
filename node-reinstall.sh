@@ -144,7 +144,7 @@ if [ ${#GLOBAL_MODULES[@]} -gt 0 ]; then
   npm install --global $GLOBAL_MODULES
 fi
 
-if [[ $OSTYPE =~ "darwin"]]; then
+if [[ $OSTYPE =~ "darwin" ]]; then
   echo "node-reinstall is done. 👍"
 else
   echo "node-reinstall is done."
