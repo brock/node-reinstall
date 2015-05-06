@@ -3,7 +3,7 @@
 # credit: http://stackoverflow.com/a/11178106/2083544
 
 ## program version
-VERSION="0.0.7"
+VERSION="0.0.8"
 
 ## path prefix
 PREFIX="${PREFIX:-/usr/local}"
@@ -121,7 +121,8 @@ if (( $USE_NVM )); then
   # go home and install NVM just because I feel safe there
   cd $HOME
   # get the latest stable version number of nvm from the repo's homepage
-  [ "$STABLE" == "" ] && STABLE=$(curl -s https://github.com/creationix/nvm/ | grep "curl https://raw.githubusercontent.com/creationix/nvm/" | grep -oE "v\d+\.\d+\.\d+")
+  [ "$STABLE" == "" ] && STABLE=$(curl -s -k https://github.com/creationix/nvm/ | grep "curl https://raw.githubusercontent.com/creationix/nvm/" | grep -oE "v\d+\.\d+\.\d+")
+  [[ $STABLE =~ ^v[0-9]+.[0-9]+.[0-9]+$ ]] || STABLE="v0.25.1"
   curl -sL https://raw.githubusercontent.com/creationix/nvm/$STABLE/install.sh | bash
   source $HOME/.nvm/nvm.sh
 elif (( $USE_NAVE )); then
@@ -143,7 +144,7 @@ if [ ${#GLOBAL_MODULES[@]} -gt 0 ]; then
   npm install --global $GLOBAL_MODULES
 fi
 
-if [[ $OSTYPE =~ "darwin"]]; then
+if [[ $OSTYPE =~ "darwin" ]]; then
   echo "node-reinstall is done. 👍"
 else
   echo "node-reinstall is done."
