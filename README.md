@@ -12,10 +12,11 @@ With [bpkg](https://github.com/bpkg/bpkg):
 $ bpkg install -g brock/node-reinstall
 ```
 
-Or from source:
+Or clone this repo and copy the executable script into a directory in your [$PATH](http://en.wikipedia.org/wiki/PATH_%28variable%29):
 
 ```
 $ git clone git@github.com:brock/node-reinstall.git
+$ cd node-reinstall
 $ cp node-reinstall/node-reinstall.sh ~/bin/node-reinstall
 ```
 
