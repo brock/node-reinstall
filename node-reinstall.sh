@@ -3,7 +3,7 @@
 # credit: http://stackoverflow.com/a/11178106/2083544
 
 ## program version
-VERSION="0.0.7"
+VERSION="0.0.8"
 
 ## path prefix
 PREFIX="${PREFIX:-/usr/local}"
