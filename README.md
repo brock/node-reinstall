@@ -16,7 +16,6 @@ Or clone this repo and copy the executable script into a directory in your [$PAT
 
 ```
 $ git clone git@github.com:brock/node-reinstall.git
-$ cd node-reinstall
 $ cp node-reinstall/node-reinstall.sh ~/bin/node-reinstall
 ```
 
