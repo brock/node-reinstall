@@ -3,7 +3,7 @@
 # credit: http://stackoverflow.com/a/11178106/2083544
 
 ## program version
-VERSION="0.0.8"
+VERSION="0.0.9"
 
 ## path prefix
 PREFIX="${PREFIX:-/usr/local}"
@@ -11,6 +11,9 @@ PREFIX="${PREFIX:-/usr/local}"
 ## version control systems
 USE_NAVE=0
 USE_NVM=1
+
+# use --force to bypass user confirmation
+FORCE=0
 
 ## default node version
 NODE_VERSION="0.10"
@@ -25,8 +28,9 @@ usage () {
   printf "%s\n" "Commands:"
   printf "\n"
   printf "\t%s\t\t\t%s\n" "node-reinstall" "re-install node and npm using nvm"
-  printf "\t%s %s %s\t%s\n" "node-reinstall" "-h" "[--help]" "show help"
-  printf "\t%s %s %s\t%s\n" "node-reinstall" "-v" "[--version]" "show the node-reinstall version number"
+  printf "\t%s %s\t%s\n" "node-reinstall" "[-h|--help]" "show help"
+  printf "\t%s %s\t%s\n" "node-reinstall" "[-v|--version]" "show the node-reinstall version number"
+  printf "\t%s %s\t%s\n" "node-reinstall" "[-f|--force]" "installs defaults without user confirmation"
   printf "\t%s %s\t\t%s\n" "node-reinstall" "--nave" "re-install using nave"
   printf "\t%s %s\t\t%s\n" "node-reinstall" "--nvm" "re-install using stable nvm - the default"
   printf "\t%s %s\t%s\n" "node-reinstall" "--nvm-latest" "re-install using latest nvm - creationix/nvm:master"
@@ -47,6 +51,10 @@ usage () {
       --version|-v)
         echo ${VERSION}
         exit
+        ;;
+
+      --force|-f)
+        FORCE=1
         ;;
 
       --nave)
@@ -93,6 +101,36 @@ else
   if [[ -n $GLOBAL_MODULES ]]; then
     echo "Will reinstall these global npm modules:"
     echo $GLOBAL_MODULES
+  else
+    echo "===== ALERT! ====="
+    echo "The script did not find any global node modules (npm -g list)"
+    echo "If you are sure you installed global node modules"
+    echo "(by running npm install -g some-module), you might want to stop "
+    echo "here and locate those, because they won't be re-installed,"
+    echo "and since we'll be deleting all the possible install paths "
+    echo "that most people could use, you probably won't find them."
+    echo ""
+    echo "This can sometimes happen if you've installed global node modules"
+    echo "under a different node environment (for example, using nvm or nave)."
+    echo "It might help to run: "
+    echo "history | grep 'npm install' and look for either -g or --global"
+    echo ""
+    echo "If you aren't really sure, or you are sure and don't care, "
+    echo "you can continue; we'll re-install things the proper way, and"
+    echo "the next time you run this script you'll see a list of "
+    echo "any global node modules you've installed since now."
+  fi
+
+  if [[ $FORCE == 0 ]]; then
+    echo ""
+    echo "Would you like to continue running node-reinstall?"
+    echo ""
+    select yn in "Yes" "No"; do
+          case $yn in
+              Yes ) break;;
+              No ) exit;;
+          esac
+    done
   fi
 fi
 
@@ -138,10 +176,21 @@ elif (( $USE_NAVE )); then
   nave usemain $NODE_VERSION
 fi
 
-if [ ${#GLOBAL_MODULES[@]} -gt 0 ]; then
+if [[ ! -z ${GLOBAL_MODULES// } ]]; then
   echo "Reinstalling your global npm modules:"
   echo $GLOBAL_MODULES
-  npm install --global $GLOBAL_MODULES
+  if [[ $FORCE == 0 ]]; then
+    echo "Continue?"
+    select yn in "Yes" "No"; do
+      case $yn in
+        Yes ) npm install --global $GLOBAL_MODULES; break;;
+        No ) exit;;
+      esac
+    done
+  else
+    npm install --global $GLOBAL_MODULES
+  fi
+  
 fi
 
 if [[ $OSTYPE =~ "darwin" ]]; then
