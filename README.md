@@ -29,9 +29,11 @@ Whenever you feel like you need to completely re-install Node and NPM, simply ru
 ## Commands
 
 	node-reinstall					re-install node and npm using nvm
-	node-reinstall -h [--help]		show help
-	node-reinstall -v [--version]	show the node-reinstall version number
+	node-reinstall [-h|--help]		show help
+	node-reinstall [-v|--version]	show the node-reinstall version number
+	node-reinstall [-f|--force]		installs defaults without user confirmation
 	node-reinstall --nave			re-install using nave
 	node-reinstall --nvm			re-install using stable nvm - the default
 	node-reinstall --nvm-latest		re-install using latest nvm - creationix/nvm:master
 	node-reinstall 0.12				specify a default node version - currently 0.10
+
