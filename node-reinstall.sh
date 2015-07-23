@@ -146,14 +146,12 @@ else
 fi
 
 # erase all possible install paths
-sudo rm -rf ~/{local,lib,include,node*,npm,.npm*}
+sudo rm -rf $HOME/{local,lib,include,node*,npm,.npm*}
 sudo rm -rf $PREFIX/lib/node*
 sudo rm -rf $PREFIX/include/node*
 sudo rm -rf $PREFIX/bin/{node,npm}
-sudo rm -rf $PREFIX/bin/npm
 sudo rm -rf $PREFIX/share/man/man1/node.1
 sudo rm -rf $PREFIX/lib/dtrace/node.d
-sudo rm -rf $HOME/.npm
 
 if (( $USE_NVM )); then
   # go home and install NVM just because I feel safe there
