@@ -188,7 +188,7 @@ if [[ ! -z ${GLOBAL_MODULES// } ]]; then
   else
     npm install --global $GLOBAL_MODULES
   fi
-  
+
 fi
 
 if [[ $OSTYPE =~ "darwin" ]]; then
@@ -196,3 +196,5 @@ if [[ $OSTYPE =~ "darwin" ]]; then
 else
   echo "node-reinstall is done."
 fi
+
+echo "You must restart your terminal for changes to take effect."
