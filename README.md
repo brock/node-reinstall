@@ -8,22 +8,45 @@ Complete Node Reinstall for OSX and Linux. See the [SO article](http://stackover
 
 ## Installation
 
-With [bpkg](https://github.com/bpkg/bpkg):
-
-```sh
-$ bpkg install -g brock/node-reinstall
-```
-
-Or clone this repo and copy the executable script into a directory in your [$PATH](http://en.wikipedia.org/wiki/PATH_%28variable%29):
-
+Clone this repo somewhere: 
 ```
 $ git clone git@github.com:brock/node-reinstall.git
-$ cp node-reinstall/node-reinstall.sh ~/bin/node-reinstall
+$ cd node-reinstall
 ```
+
+To run `node-reinstall`, you can call it directly since it is an executable file:
+
+```
+$ ./node-reinstall
+```
+
+Or you can run it with bash:
+```
+$ bash node-reinstall
+```
+---
+If you decide later that you want to re-install all over again, just come back to this git repo where you cloned it, optionally update to the latest version of `node-reinstall` by running `git pull`, then run it again:
+```
+$ cd node-reinstall
+$ git pull
+$ bash node-reinstall
+```
+
+## Optional
+If you are comfortable with Bash and the command line, you can copy the `node-reinstall` file to someplace in your [$PATH](http://en.wikipedia.org/wiki/PATH_%28variable%29)
+```
+cp ~/bin/node-reinstall
+```
+
+With `node-reinstall` in your [$PATH](http://en.wikipedia.org/wiki/PATH_%28variable%29) you can execute it from any directory:
+```
+$ node-reinstall
+```
+
 
 ## Usage
 
-Whenever you feel like you need to completely re-install Node and NPM, simply run the command `node-reinstall`. You'll be prompted for sudo privileges since this will remove all possible installation paths. Feel free to update this script if it deletes directories in excess. Pull requests welcome.
+Whenever you feel like you need to completely re-install Node and NPM, simply execute `node-reinstall`. You'll be prompted for sudo privileges since this will remove all possible installation paths. Pull requests welcome.
 
 
     Usage:	node-reinstall [--nave|--nvm|--nvm-latest] [-h|--help] [-v|--version] [NODE_VERSION]
