@@ -10,26 +10,26 @@ Complete Node Reinstall for OSX and Linux. See the [SO article](http://stackover
 
 Clone this repo somewhere: 
 ```
-$ git clone git@github.com:brock/node-reinstall.git
-$ cd node-reinstall
+git clone git@github.com:brock/node-reinstall.git
+cd node-reinstall
 ```
 
 To run `node-reinstall`, you can call it directly since it is an executable file:
 
 ```
-$ ./node-reinstall
+./node-reinstall
 ```
 
 Or you can run it with bash:
 ```
-$ bash node-reinstall
+bash node-reinstall
 ```
 ---
 If you decide later that you want to re-install all over again, just come back to this git repo where you cloned it, optionally update to the latest version of `node-reinstall` by running `git pull`, then run it again:
 ```
-$ cd node-reinstall
-$ git pull
-$ bash node-reinstall
+cd node-reinstall
+git pull
+bash node-reinstall
 ```
 
 ## Optional
@@ -40,7 +40,7 @@ cp node-reinstall ~/bin/node-reinstall
 
 With `node-reinstall` in your [$PATH](http://en.wikipedia.org/wiki/PATH_%28variable%29) you can execute it from any directory:
 ```
-$ node-reinstall
+node-reinstall
 ```
 
 
