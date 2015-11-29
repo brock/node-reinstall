@@ -35,7 +35,7 @@ $ bash node-reinstall
 ## Optional
 If you are comfortable with Bash and the command line, you can copy the `node-reinstall` file to someplace in your [$PATH](http://en.wikipedia.org/wiki/PATH_%28variable%29)
 ```
-cp ~/bin/node-reinstall
+cp node-reinstall ~/bin/node-reinstall
 ```
 
 With `node-reinstall` in your [$PATH](http://en.wikipedia.org/wiki/PATH_%28variable%29) you can execute it from any directory:
