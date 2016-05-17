@@ -3,7 +3,7 @@
 # credit: http://stackoverflow.com/a/11178106/2083544
 
 ## program version
-VERSION="0.0.13"
+VERSION="0.0.14"
 
 ## path prefix
 PREFIX="${PREFIX:-/usr/local}"
@@ -16,7 +16,7 @@ USE_NVM=1
 FORCE=0
 
 ## default node version
-NODE_VERSION="0.10"
+NODE_VERSION="5"
 
 usage () {
   printf "%s\n" "node-reinstall"
@@ -167,7 +167,7 @@ fi
 
 
 if (( $USE_NVM )); then
-  # install the latest 0.10 version of node then set it as the default
+  # install the specified version of node then set it as the default
   nvm install $NODE_VERSION
   nvm alias default $NODE_VERSION
 elif (( $USE_NAVE )); then
