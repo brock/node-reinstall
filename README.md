@@ -8,7 +8,7 @@ Complete Node Reinstall for OSX and Linux. See the [SO article](http://stackover
 
 ## Installation
 
-Clone this repo somewhere: 
+Clone this repo somewhere:
 ```
 git clone git@github.com:brock/node-reinstall.git
 cd node-reinstall
@@ -60,5 +60,4 @@ Whenever you feel like you need to completely re-install Node and NPM, simply ex
 	node-reinstall --nave			re-install using nave
 	node-reinstall --nvm			re-install using stable nvm - the default
 	node-reinstall --nvm-latest		re-install using latest nvm - creationix/nvm:master
-	node-reinstall 0.12				specify a default node version - currently 0.10
-
+	node-reinstall 0.12				specify a default node version
