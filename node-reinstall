@@ -3,7 +3,7 @@
 # credit: http://stackoverflow.com/a/11178106/2083544
 
 ## program version
-VERSION="0.0.14"
+VERSION="0.0.15"
 
 ## path prefix
 PREFIX="${PREFIX:-/usr/local}"
@@ -86,8 +86,33 @@ usage () {
 
 }
 
+confirm ()
+{
+  if [[ $FORCE == 0 ]]; then
+    echo ""
+    echo "Would you like to continue running node-reinstall?"
+    echo ""
+    select yn in "Yes" "No"; do
+          case $yn in
+              Yes ) break;;
+              No ) exit;;
+          esac
+    done
+  fi
+}
+
 # get sudo
 sudo -v
+
+# if node is installed, get the installed version
+INSTALLED_NODE_VERSION=$(node --version)
+if [[ ! -z $INSTALLED_NODE_VERSION ]]; then
+  echo "Found a version of Node.js that is already installed."
+  echo "If you continue now, we will re-install Node.js version $INSTALLED_NODE_VERSION"
+  NODE_VERSION=$INSTALLED_NODE_VERSION
+  echo $NODE_VERSION
+  confirm
+fi
 
 # check to see if npm is installed
 IS_NPM_MISSING=$(which npm)
@@ -120,18 +145,7 @@ else
     echo "the next time you run this script you'll see a list of "
     echo "any global node modules you've installed since now."
   fi
-
-  if [[ $FORCE == 0 ]]; then
-    echo ""
-    echo "Would you like to continue running node-reinstall?"
-    echo ""
-    select yn in "Yes" "No"; do
-          case $yn in
-              Yes ) break;;
-              No ) exit;;
-          esac
-    done
-  fi
+  confirm
 fi
 
 if (( $USE_NVM )); then
