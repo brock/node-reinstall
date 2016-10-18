@@ -105,7 +105,7 @@ confirm ()
 sudo -v
 
 # if node is installed, get the installed version
-INSTALLED_NODE_VERSION=$(node --version)
+INSTALLED_NODE_VERSION=$(node --version 2> /dev/null)
 if [[ ! -z $INSTALLED_NODE_VERSION ]]; then
   echo "Found a version of Node.js that is already installed."
   echo "If you continue now, we will re-install Node.js version $INSTALLED_NODE_VERSION"
@@ -159,8 +159,23 @@ else
   exit 1
 fi
 
-# erase all possible install paths
-sudo rm -rf $HOME/{local,lib,include,node*,npm,.npm*}
+# erase all local install paths
+DIRECTORIES=("local" "lib" "include" "node*" "npm" ".npm")
+for i in "${DIRECTORIES[@]}"
+do
+   if [ -d $HOME/$i ]; then
+     LEN=$(ls -A $HOME/$i | wc -l 2> /dev/null)
+     if [[ $LEN -gt 1 ]]; then
+       echo "${HOME}/${i} has files or directories in it. You should check to see if you need the files in ${HOME}/${i} before proceeding!"
+       confirm
+     fi
+   fi
+   # do whatever on $i
+done
+
+rm -rf $HOME/{local,lib,include,node*,npm,.npm*}
+
+# erase globally installed node paths
 sudo rm -rf $PREFIX/lib/node*
 sudo rm -rf $PREFIX/include/node*
 sudo rm -rf $PREFIX/bin/{node,npm}
