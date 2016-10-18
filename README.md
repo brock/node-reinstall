@@ -5,12 +5,12 @@
 Node-Reinstall is going to delete a lot of shit, and you won't be able to recover any of it. Do yourself a favor and make sure that you read the [node-reinstall](./node-reinstall) script and completely understand what it is going to do (i.e.: *what it is going to delete*) before you proceed. Here is an expanded version of the script that shows all of the directories that will be deleted:
 
 ```
-sudo rm -rf ~/local
-sudo rm -rf ~/lib
-sudo rm -rf ~/include
-sudo rm -rf ~/node*
-sudo rm -rf ~/npm
-sudo rm -rf ~/.npm*
+rm -rf ~/local
+rm -rf ~/lib
+rm -rf ~/include
+rm -rf ~/node*
+rm -rf ~/npm
+rm -rf ~/.npm*
 sudo rm -rf /usr/local/lib/node*
 sudo rm -rf /usr/local/include/node*
 sudo rm -rf /usr/local/bin/node
@@ -19,7 +19,7 @@ sudo rm -rf /usr/local/share/man/man1/node.1
 sudo rm -rf /usr/local/lib/dtrace/node.d
 ```
 
-At an absolute minimum, you need to go into the home directories (the ones that start with `~/`) and make sure you are okay with deleting the contents of those directories. If you are unsure if this will delete anything important, you should stop now and find another alternative for re-installing Node.js, because this approach is pretty destructive. 
+At an absolute minimum, you need to go into the home directories (the ones that start with `~/`) and make sure you are okay with deleting the contents of those directories. If you are unsure if this will delete anything important, you should stop now and find another alternative for re-installing Node.js, because this approach is pretty destructive.
 
 This script assumes you are comfortable enough with UNIX to perform these actions. If you are not, I will respond to your GitHub issue with the following GIF that is titled "pay-attention.gif"  
 
