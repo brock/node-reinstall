@@ -28,7 +28,7 @@ This script assumes you are comfortable enough with UNIX to perform these action
 ## Summary
 This is a complete (and very destructive) tool for re-installing Node.js on OSX and Linux. See the [SO article](http://stackoverflow.com/a/11178106/2083544) for reference and the related [gist that spawned this repo](https://gist.github.com/brock/5b1b70590e1171c4ab54). This deletes ~~everything, yes everything,~~ **a lot of stuff you might want** and completely removes Node.js and NPM and replaces it with the Node Version Manager called [NVM](https://github.com/creationix/nvm). It will attempt to re-install any global NPM modules already installed, and you can opt for Nave instead of NVM if you prefer.
 
-It also works as a first-time installer.*
+It also works as a first-time installer.
 
 ## Installation
 
