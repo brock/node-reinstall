@@ -1,8 +1,8 @@
 {
   "name": "node-reinstall",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "Completely re-install Node, NPM and NVM",
-  "scripts": [ "node-reinstall.sh" ],
+  "scripts": [ "node-reinstall" ],
   "install": "make install",
   "global": true
 }
