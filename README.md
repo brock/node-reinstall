@@ -2,9 +2,33 @@
 
 [![Join the chat at https://gitter.im/brock/node-reinstall](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/brock/node-reinstall?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Complete Node Reinstall for OSX and Linux. See the [SO article](http://stackoverflow.com/a/11178106/2083544) for reference and the related [gist that spawned this repo](https://gist.github.com/brock/5b1b70590e1171c4ab54). This deletes everything, yes everything, and re-installs Node and NPM with NVM (or Nave), then re-installs any global NPM modules already installed.
+Node-Reinstall is going to delete a lot of shit, and you won't be able to recover any of it. Do yourself a favor and make sure that you read the [node-reinstall](./node-reinstall) script and completely understand what it is going to do (i.e.: *what it is going to delete*) before you proceed. Here is an expanded version of the script that shows all of the directories that will be deleted:
 
-*Don't have Node.js installed yet? No problem. It also works as a first-time installer.*
+```
+rm -rf ~/local
+rm -rf ~/lib
+rm -rf ~/include
+rm -rf ~/node*
+rm -rf ~/npm
+rm -rf ~/.npm*
+sudo rm -rf /usr/local/lib/node*
+sudo rm -rf /usr/local/include/node*
+sudo rm -rf /usr/local/bin/node
+sudo rm -rf /usr/local/bin/npm
+sudo rm -rf /usr/local/share/man/man1/node.1
+sudo rm -rf /usr/local/lib/dtrace/node.d
+```
+
+At an absolute minimum, you need to go into the home directories (the ones that start with `~/`) and make sure you are okay with deleting the contents of those directories. If you are unsure if this will delete anything important, you should stop now and find another alternative for re-installing Node.js, because this approach is pretty destructive.
+
+This script assumes you are comfortable enough with UNIX to perform these actions. If you are not, I will respond to your GitHub issue with the following GIF that is titled "pay-attention.gif"  
+
+![](img/pay-attention.gif)
+
+## Summary
+This is a complete (and very destructive) tool for re-installing Node.js on OSX and Linux. See the [SO article](http://stackoverflow.com/a/11178106/2083544) for reference and the related [gist that spawned this repo](https://gist.github.com/brock/5b1b70590e1171c4ab54). This deletes ~~everything, yes everything,~~ **a lot of stuff you might want** and completely removes Node.js and NPM and replaces it with the Node Version Manager called [NVM](https://github.com/creationix/nvm). It will attempt to re-install any global NPM modules already installed, and you can opt for Nave instead of NVM if you prefer.
+
+It also works as a first-time installer.
 
 ## Installation
 

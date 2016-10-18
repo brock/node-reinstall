@@ -1,9 +1,9 @@
 BIN ?= node-reinstall
 PREFIX ?= /usr/local
-USAGE ?= $$(./node-reinstall.sh -h | grep "Usage:")
+USAGE ?= $$(./node-reinstall -h | grep "Usage:")
 
 install:
-	cp node-reinstall.sh $(PREFIX)/bin/$(BIN)
+	cp node-reinstall $(PREFIX)/bin/$(BIN)
 
 uninstall:
 	rm -f $(PREFIX)/bin/$(BIN)
@@ -14,4 +14,4 @@ readme:
 	mv changes.md README.md
 	echo "## Commands" >> README.md
 	echo '' >> README.md
-	./node-reinstall.sh -h | sed -n -e '/Commands:/,// p' | tail -n +3 >> README.md
+	./node-reinstall -h | sed -n -e '/Commands:/,// p' | tail -n +3 >> README.md
