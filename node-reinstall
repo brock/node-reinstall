@@ -160,7 +160,7 @@ else
 fi
 
 # erase all local install paths
-DIRECTORIES=("local" "lib" "include" "node*" "npm" ".npm")
+DIRECTORIES=("local" "lib" "include" "node*" "npm" ".npm" ".node-gyp")
 for i in "${DIRECTORIES[@]}"
 do
    if [ -d $HOME/$i ]; then
@@ -173,7 +173,7 @@ do
    # do whatever on $i
 done
 
-rm -rf $HOME/{local,lib,include,node*,npm,.npm*}
+rm -rf $HOME/{local,lib,include,node*,npm,.npm*,.node-gyp}
 
 # erase globally installed node paths
 sudo rm -rf $PREFIX/lib/node*
