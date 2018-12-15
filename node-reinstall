@@ -105,7 +105,7 @@ confirm ()
 sudo -v
 
 # if node is installed, get the installed version
-INSTALLED_NODE_VERSION=$(node --version 2> /dev/null)
+INSTALLED_NODE_VERSION=$(node --version 2&1> /dev/null)
 if [[ ! -z $INSTALLED_NODE_VERSION ]]; then
   echo "Found a version of Node.js that is already installed."
   echo "If you continue now, we will re-install Node.js version $INSTALLED_NODE_VERSION"
