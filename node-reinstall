@@ -182,6 +182,9 @@ sudo rm -rf $PREFIX/bin/{node,npm}
 sudo rm -rf $PREFIX/share/man/man1/node.1
 sudo rm -rf $PREFIX/lib/dtrace/node.d
 
+# remove global node_modules on arch
+[ -d /usr/lib/node_modules ] && sudo rm -rf /usr/lib/node_modules
+
 if (( $USE_NVM )); then
   # go home and install NVM just because I feel safe there
   cd $HOME
