@@ -3,7 +3,7 @@
 # credit: http://stackoverflow.com/a/11178106/2083544
 
 ## program version
-VERSION="0.0.17"
+VERSION="0.0.18"
 
 ## path prefix
 PREFIX="${PREFIX:-/usr/local}"
@@ -105,7 +105,7 @@ confirm ()
 sudo -v
 
 # if node is installed, get the installed version
-INSTALLED_NODE_VERSION=$(node --version 2> /dev/null)
+INSTALLED_NODE_VERSION=$(node --version 2&1> /dev/null)
 if [[ ! -z $INSTALLED_NODE_VERSION ]]; then
   echo "Found a version of Node.js that is already installed."
   echo "If you continue now, we will re-install Node.js version $INSTALLED_NODE_VERSION"
@@ -182,12 +182,18 @@ sudo rm -rf $PREFIX/bin/{node,npm}
 sudo rm -rf $PREFIX/share/man/man1/node.1
 sudo rm -rf $PREFIX/lib/dtrace/node.d
 
+# remove global node_modules on arch
+[ -d /usr/lib/node_modules ] && sudo rm -rf /usr/lib/node_modules
+
 if (( $USE_NVM )); then
   # go home and install NVM just because I feel safe there
   cd $HOME
-  # get the latest stable version number of nvm from the repo's homepage
-  [ "$STABLE" == "" ] && STABLE=$(curl -s -k https://github.com/creationix/nvm/ | grep "curl https://raw.githubusercontent.com/creationix/nvm/" | grep -oE "v\d+\.\d+\.\d+")
-  [[ $STABLE =~ ^v[0-9]+.[0-9]+.[0-9]+$ ]] || STABLE="v0.25.1"
+  # get the latest stable version number of nvm from the repo's package.json
+  # credit to https://unix.stackexchange.com/a/166360/107211 and
+  # credit to https://stackoverflow.com/a/6852427/2083544
+  [ "$STABLE" == "" ] && STABLE_WITHOUT_V=$(curl -v --silent https://raw.githubusercontent.com/creationix/nvm/master/package.json 2>&1 | grep -Eo '"version":.*?[^\\]",' | perl -pe 's/"version": //; s/^"//; s/",$//')
+  [ -n $STABLE_WITHOUT_V ] && [[ $STABLE_WITHOUT_V =~ ^[0-9]+.[0-9]+.[0-9]+$ ]] && STABLE="v${STABLE_WITHOUT_V}"
+  [[ $STABLE =~ ^v[0-9]+.[0-9]+.[0-9]+$ ]] || STABLE="v0.33.11"
   curl -sL https://raw.githubusercontent.com/creationix/nvm/$STABLE/install.sh | bash
   source $HOME/.nvm/nvm.sh
 elif (( $USE_NAVE )); then
