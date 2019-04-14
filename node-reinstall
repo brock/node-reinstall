@@ -16,7 +16,13 @@ USE_NVM=1
 FORCE=0
 
 ## default node version
-NODE_VERSION="5"
+DEFAULT_NODE_VERSION="5"
+
+## user-specified node version to install
+DESIRED_NODE_VERSION=
+
+## node version to install
+NODE_VERSION=
 
 usage () {
   printf "%s\n" "node-reinstall"
@@ -80,7 +86,7 @@ usage () {
           exit 1
         fi
 
-        NODE_VERSION="${opt}"
+        DESIRED_NODE_VERSION="${opt}"
     esac
   done
 
@@ -106,11 +112,19 @@ sudo -v
 
 # if node is installed, get the installed version
 INSTALLED_NODE_VERSION=$(node --version 2> /dev/null)
-if [[ ! -z $INSTALLED_NODE_VERSION ]]; then
-  echo "Found a version of Node.js that is already installed."
-  echo "If you continue now, we will re-install Node.js version $INSTALLED_NODE_VERSION"
+
+if [[ ! -z $DESIRED_NODE_VERSION ]]; then
+  NODE_VERSION=$DESIRED_NODE_VERSION
+elif [[ ! -z $INSTALLED_NODE_VERSION ]]; then
   NODE_VERSION=$INSTALLED_NODE_VERSION
-  echo $NODE_VERSION
+else
+  NODE_VERSION=$DEFAULT_NODE_VERSION
+fi
+
+# confirm re-installation only if node already exists
+if [[ ! -z $INSTALLED_NODE_VERSION ]]; then
+  echo "Found Node.js version $INSTALLED_NODE_VERSION already installed."
+  echo "If you continue now, we will replace it with Node.js version $NODE_VERSION"
   confirm
 fi
 
