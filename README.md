@@ -1,5 +1,9 @@
 # Node Re-install
 
+By [brock](https://github.com/brock) - Featuring [jwerle](https://github.com/jwerle), [hanoii](https://github.com/hanoii), [mistergraphx](https://github.com/mistergraphx), & [gitter-badger](https://github.com/gitter-badger)
+
+---
+
 Node-Reinstall is going to delete a lot of shit, and you won't be able to recover any of it. Do yourself a favor and make sure that you read the [node-reinstall](./node-reinstall) script and completely understand what it is going to do (i.e.: *what it is going to delete*) before you proceed. Here is an expanded version of the script that shows all of the directories that will be deleted:
 
 ```
