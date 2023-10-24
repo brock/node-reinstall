@@ -193,7 +193,9 @@ rm -rf $HOME/{local,lib,include,node*,npm,.npm*,.node-gyp}
 sudo rm -rf $PREFIX/lib/node*
 sudo rm -rf $PREFIX/include/node*
 sudo rm -rf $PREFIX/bin/{node,npm}
+sudo rm -rf $PREFIX/share/doc/node
 sudo rm -rf $PREFIX/share/man/man1/node.1
+sudo rm -rf $PREFIX/share/systemtap/tapset/node.stp
 sudo rm -rf $PREFIX/lib/dtrace/node.d
 
 if (( $USE_NVM )); then
