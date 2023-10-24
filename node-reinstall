@@ -193,17 +193,14 @@ rm -rf $HOME/{local,lib,include,node*,npm,.npm*,.node-gyp}
 sudo rm -rf $PREFIX/lib/node*
 sudo rm -rf $PREFIX/include/node*
 sudo rm -rf $PREFIX/bin/{node,npm}
+sudo rm -rf $PREFIX/share/doc/node
 sudo rm -rf $PREFIX/share/man/man1/node.1
+sudo rm -rf $PREFIX/share/systemtap/tapset/node.stp
 sudo rm -rf $PREFIX/lib/dtrace/node.d
 
 if (( $USE_NVM )); then
-  # go home and install NVM just because I feel safe there
-  cd $HOME
-  # get the latest stable version number of nvm from the repo's homepage
-  [ "$STABLE" == "" ] && STABLE=$(curl -s -k https://github.com/creationix/nvm/ | grep "curl https://raw.githubusercontent.com/creationix/nvm/" | grep -oE "v\d+\.\d+\.\d+")
-  [[ $STABLE =~ ^v[0-9]+.[0-9]+.[0-9]+$ ]] || STABLE="v0.25.1"
-  curl -sL https://raw.githubusercontent.com/creationix/nvm/$STABLE/install.sh | bash
-  source $HOME/.nvm/nvm.sh
+  latest=$(curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/nvm-sh/nvm/releases/latest | grep tag_name | grep -oE "v\d+\.\d+\.\d+")
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/$latest/install.sh | bash
 elif (( $USE_NAVE )); then
   curl -sL https://raw.githubusercontent.com/isaacs/nave/master/nave.sh -o $PREFIX/bin/nave
 fi

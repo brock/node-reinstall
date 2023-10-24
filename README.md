@@ -1,6 +1,5 @@
-# Node Re-install
 
-By [brock](https://github.com/brock) - Featuring [jwerle](https://github.com/jwerle), [hanoii](https://github.com/hanoii), [mistergraphx](https://github.com/mistergraphx), & [gitter-badger](https://github.com/gitter-badger)
+By [brock](https://github.com/brock) - Featuring [jwerle](https://github.com/jwerle), [hanoii](https://github.com/hanoii), [mistergraphx](https://github.com/mistergraphx), [gitter-badger](https://github.com/gitter-badger), & [seguri](https://github.com/seguri)
 
 ---
 
@@ -17,7 +16,9 @@ sudo rm -rf /usr/local/lib/node*
 sudo rm -rf /usr/local/include/node*
 sudo rm -rf /usr/local/bin/node
 sudo rm -rf /usr/local/bin/npm
+sudo rm -rf /usr/local/share/doc/node
 sudo rm -rf /usr/local/share/man/man1/node.1
+sudo rm -rf /usr/local/share/systemtap/tapset/node.stp
 sudo rm -rf /usr/local/lib/dtrace/node.d
 ```
 
