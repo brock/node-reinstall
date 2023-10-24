@@ -1,6 +1,5 @@
-# Node Re-install
 
-By [brock](https://github.com/brock) - Featuring [jwerle](https://github.com/jwerle), [hanoii](https://github.com/hanoii), [mistergraphx](https://github.com/mistergraphx), & [gitter-badger](https://github.com/gitter-badger)
+By [brock](https://github.com/brock) - Featuring [jwerle](https://github.com/jwerle), [hanoii](https://github.com/hanoii), [mistergraphx](https://github.com/mistergraphx), [gitter-badger](https://github.com/gitter-badger), & [seguri](https://github.com/seguri)
 
 ---
 
