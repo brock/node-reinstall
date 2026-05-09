@@ -99,4 +99,15 @@ Whenever you feel like you need to completely re-install Node and NPM, simply ex
 	node-reinstall --nave			re-install using nave
 	node-reinstall --nvm			re-install using stable nvm - the default
 	node-reinstall --nvm-latest		re-install using latest nvm - creationix/nvm:master
-	node-reinstall 5.0.0			specify a default node version
+node-reinstall 5.0.0			specify a default node version
+
+## Testing
+
+Install [bats-core](https://github.com/bats-core/bats-core), then run:
+
+```
+make test
+```
+
+The test suite shadows destructive commands with mocks and runs `node-reinstall`
+against temporary `HOME` and `PREFIX` paths.
