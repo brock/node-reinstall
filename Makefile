@@ -8,6 +8,10 @@ install:
 uninstall:
 	rm -f $(PREFIX)/bin/$(BIN)
 
+test:
+	bash -n ./node-reinstall
+	bats test
+
 readme:
 	perl -pi -w -e "s/Usage:.*/$(USAGE)/" README.md
 	sed '/Commands/,$$ d' README.md > changes.md
@@ -15,3 +19,5 @@ readme:
 	echo "## Commands" >> README.md
 	echo '' >> README.md
 	./node-reinstall -h | sed -n -e '/Commands:/,// p' | tail -n +3 >> README.md
+
+.PHONY: install uninstall test readme
