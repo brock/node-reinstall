@@ -1,0 +1,19 @@
+name: Windows test
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  batch-smoke:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Run Windows smoke checks
+        shell: cmd
+        run: call test\windows-smoke.bat
