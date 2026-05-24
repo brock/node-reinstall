@@ -208,6 +208,19 @@ assert_log_not_contains() {
   assert_log_not_contains "nvm install"
 }
 
+@test "--nvm-latest installs from master without querying latest release" {
+  install_safe_stubs
+  export MOCK_NPM_PRESENT=0
+
+  run "$SCRIPT" --force --nvm-latest 20
+
+  [ "$status" -eq 0 ]
+  assert_log_contains "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh"
+  assert_log_not_contains "api.github.com/repos/nvm-sh/nvm/releases/latest"
+  assert_log_contains "nvm install 20"
+  assert_log_contains "nvm alias default 20"
+}
+
 @test "global npm modules are captured and reinstalled in force mode" {
   install_safe_stubs
   export MOCK_NPM_PRESENT=1
