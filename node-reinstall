@@ -136,7 +136,7 @@ else
   echo "Completely reinstalling Node, npm."
   # get list of global npm modules to reinstall
   # omit the lib directory listing
-  GLOBAL_MODULES=`npm -g list --depth 0 --parseable | xargs basename | sed -E 's/^(lib|npm)$//g'`
+  GLOBAL_MODULES=`npm -g list --depth 0 --parseable | xargs -n 1 basename | sed -E '/^(lib|npm)$/d'`
   if [[ -n $GLOBAL_MODULES ]]; then
     echo "Will reinstall these global npm modules:"
     echo $GLOBAL_MODULES
@@ -199,7 +199,7 @@ sudo rm -rf $PREFIX/share/systemtap/tapset/node.stp
 sudo rm -rf $PREFIX/lib/dtrace/node.d
 
 if (( $USE_NVM )); then
-  latest=$(curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/nvm-sh/nvm/releases/latest | grep tag_name | grep -oE "v\d+\.\d+\.\d+")
+  latest=$(curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/nvm-sh/nvm/releases/latest | grep tag_name | grep -oE "v[0-9]+\.[0-9]+\.[0-9]+")
   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/$latest/install.sh | bash
 elif (( $USE_NAVE )); then
   curl -sL https://raw.githubusercontent.com/isaacs/nave/master/nave.sh -o $PREFIX/bin/nave
