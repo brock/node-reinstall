@@ -15,3 +15,14 @@ readme:
 	echo "## Commands" >> README.md
 	echo '' >> README.md
 	./node-reinstall -h | sed -n -e '/Commands:/,// p' | tail -n +3 >> README.md
+
+test:
+	@if command -v bats >/dev/null 2>&1; then \
+		bats test/*.bats; \
+	elif [ -x test/bats/bin/bats ]; then \
+		test/bats/bin/bats test/*.bats; \
+	else \
+		echo "BATS is required to run the test suite." >&2; \
+		echo "Install bats-core or clone it to test/bats." >&2; \
+		exit 127; \
+	fi

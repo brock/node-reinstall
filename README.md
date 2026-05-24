@@ -100,3 +100,13 @@ Whenever you feel like you need to completely re-install Node and NPM, simply ex
 	node-reinstall --nvm			re-install using stable nvm - the default
 	node-reinstall --nvm-latest		re-install using latest nvm - creationix/nvm:master
 	node-reinstall 5.0.0			specify a default node version
+
+## Testing
+
+The test suite uses [BATS](https://github.com/bats-core/bats-core) for non-destructive smoke tests. Install BATS locally, then run:
+
+```
+make test
+```
+
+The current tests only exercise safe paths such as help, version, and invalid option handling. They do not run the reinstall flow or delete local files.
