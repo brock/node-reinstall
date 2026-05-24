@@ -1,0 +1,8 @@
+language: bash
+
+before_install:
+  - git clone --depth 1 https://github.com/bats-core/bats-core.git /tmp/bats-core
+  - sudo /tmp/bats-core/install.sh /usr/local
+
+script:
+  - make test
