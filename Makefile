@@ -12,6 +12,7 @@ uninstall:
 	rm -f $(PREFIX)/bin/$(BIN)
 
 test:
+	bash -n ./node-reinstall
 	$(BATS) test
 
 readme:

@@ -31,16 +31,30 @@ install_reinstall_stubs() {
     'if [ "$1" = "-v" ]; then exit 0; fi' \
     'exec "$@"'
 
+  write_stub which \
+    '#!/usr/bin/env bash' \
+    'if [ "$1" = "npm" ]; then' \
+    '  if [ "${MOCK_NPM_PRESENT:-1}" = "0" ]; then exit 1; fi' \
+    '  printf "%s/npm\n" "$STUB_DIR"' \
+    '  exit 0' \
+    'fi' \
+    'command -v "$1"'
+
   write_stub node \
     '#!/usr/bin/env bash' \
     'printf "node %s\n" "$*" >> "$STUB_LOG"' \
-    'printf "v18.19.0\n"'
+    'if [ "${MOCK_NODE_PRESENT:-1}" = "0" ]; then exit 127; fi' \
+    'printf "%s\n" "${MOCK_NODE_VERSION:-v18.19.0}"'
 
   write_stub npm \
     '#!/usr/bin/env bash' \
     'printf "npm %s\n" "$*" >> "$STUB_LOG"' \
     'if [ "$1" = "-g" ] && [ "$2" = "list" ]; then' \
-    '  printf "/tmp/prefix/lib\n/tmp/prefix/lib/npm\n/tmp/prefix/lib/prettier\n/tmp/prefix/lib/typescript\n"' \
+    '  if [ -n "${MOCK_GLOBAL_MODULES:-}" ]; then' \
+    '    printf "%s\n" "$MOCK_GLOBAL_MODULES"' \
+    '  else' \
+    '    printf "/tmp/prefix/lib\n/tmp/prefix/lib/npm\n/tmp/prefix/lib/prettier\n/tmp/prefix/lib/typescript\n"' \
+    '  fi' \
     'fi'
 
   write_stub curl \
@@ -97,6 +111,20 @@ install_reinstall_stubs() {
   [ "$output" = "0.0.17" ]
 }
 
+@test "--version exits before privileged operations" {
+  make_stub_dir
+  write_stub sudo \
+    '#!/usr/bin/env bash' \
+    'echo "sudo should not run for version" >&2' \
+    'exit 42'
+
+  run "$SCRIPT" --version
+
+  [ "$status" -eq 0 ]
+  [ "$output" = "0.0.17" ]
+  [[ "$output" != *"sudo should not run"* ]]
+}
+
 @test "unknown options fail with usage output before privileged operations" {
   make_stub_dir
   write_stub sudo \
@@ -128,6 +156,33 @@ install_reinstall_stubs() {
   grep -q "npm install --global" "$STUB_LOG"
   grep -q "prettier" "$STUB_LOG"
   grep -q "typescript" "$STUB_LOG"
+}
+
+@test "first-time nvm install uses the requested Node version" {
+  install_reinstall_stubs
+  export MOCK_NPM_PRESENT=0
+  export MOCK_NODE_PRESENT=0
+
+  run "$SCRIPT" --force --nvm 20
+
+  [ "$status" -eq 0 ]
+  [[ "$output" == *"Installing Node, npm."* ]]
+  grep -q "nvm install 20" "$STUB_LOG"
+  grep -q "nvm alias default 20" "$STUB_LOG"
+  ! grep -q "npm install --global" "$STUB_LOG"
+}
+
+@test "--nvm-latest installs from the master install script" {
+  install_reinstall_stubs
+  export MOCK_NPM_PRESENT=0
+  export MOCK_NODE_PRESENT=0
+
+  run "$SCRIPT" --force --nvm-latest 20
+
+  [ "$status" -eq 0 ]
+  grep -q "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh" "$STUB_LOG"
+  ! grep -q "api.github.com/repos/nvm-sh/nvm/releases/latest" "$STUB_LOG"
+  grep -q "nvm install 20" "$STUB_LOG"
 }
 
 @test "--force --nave runs the nave reinstall path against safe stubs" {

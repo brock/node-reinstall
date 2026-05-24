@@ -90,9 +90,9 @@ Install [bats-core](https://github.com/bats-core/bats-core), then run:
 make test
 ```
 
-The suite covers command-line paths that exit before destructive operations and
-full `--force` reinstall flows by replacing `sudo`, `npm`, `curl`, `nvm`, and
-`nave` with safe stubs.
+The suite covers command-line paths that exit before destructive operations,
+first-time installs, `--nvm-latest`, and full `--force` reinstall flows by
+replacing `sudo`, `npm`, `curl`, `nvm`, and `nave` with safe stubs.
 
 
 ## Usage
