@@ -82,6 +82,18 @@ With `node-reinstall` in your [$PATH](http://en.wikipedia.org/wiki/PATH_%28varia
 node-reinstall
 ```
 
+## Tests
+
+Install [bats-core](https://github.com/bats-core/bats-core), then run:
+
+```
+make test
+```
+
+The suite covers command-line paths that exit before destructive operations,
+first-time installs, `--nvm-latest`, and full `--force` reinstall flows by
+replacing `sudo`, `npm`, `curl`, `nvm`, and `nave` with safe stubs.
+
 
 ## Usage
 
