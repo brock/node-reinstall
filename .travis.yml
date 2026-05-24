@@ -1,0 +1,8 @@
+language: bash
+
+install:
+  - git clone --depth 1 https://github.com/bats-core/bats-core.git /tmp/bats-core
+  - export PATH="/tmp/bats-core/bin:$PATH"
+
+script:
+  - make test

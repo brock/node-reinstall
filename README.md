@@ -82,6 +82,16 @@ With `node-reinstall` in your [$PATH](http://en.wikipedia.org/wiki/PATH_%28varia
 node-reinstall
 ```
 
+## Tests
+
+Install [bats-core](https://github.com/bats-core/bats-core), then run:
+
+```
+make test
+```
+
+The test suite runs safe command-line paths and full reinstall flows by replacing
+destructive commands with temporary stubs.
 
 ## Usage
 
