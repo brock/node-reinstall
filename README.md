@@ -82,6 +82,16 @@ With `node-reinstall` in your [$PATH](http://en.wikipedia.org/wiki/PATH_%28varia
 node-reinstall
 ```
 
+## Tests
+
+Run the BATS test suite with:
+
+```
+make test
+```
+
+The tests cover safe command-line paths that exit before any destructive reinstall operations run, plus stubbed reinstall flows that run against temporary `HOME` and `PREFIX` paths.
+
 
 ## Usage
 

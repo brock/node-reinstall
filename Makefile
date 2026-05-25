@@ -2,11 +2,16 @@ BIN ?= node-reinstall
 PREFIX ?= /usr/local
 USAGE ?= $$(./node-reinstall -h | grep "Usage:")
 
+.PHONY: install uninstall test readme
+
 install:
 	cp node-reinstall $(PREFIX)/bin/$(BIN)
 
 uninstall:
 	rm -f $(PREFIX)/bin/$(BIN)
+
+test:
+	bats test
 
 readme:
 	perl -pi -w -e "s/Usage:.*/$(USAGE)/" README.md
