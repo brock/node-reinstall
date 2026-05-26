@@ -15,3 +15,6 @@ readme:
 	echo "## Commands" >> README.md
 	echo '' >> README.md
 	./node-reinstall -h | sed -n -e '/Commands:/,// p' | tail -n +3 >> README.md
+
+test:
+	bats test/node-reinstall.bats
