@@ -1,0 +1,8 @@
+language: bash
+
+before_script:
+  - git clone --depth 1 https://github.com/bats-core/bats-core.git
+  - sudo bats-core/install.sh /usr/local
+
+script:
+  - bats test/node-reinstall.bats

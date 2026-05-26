@@ -90,6 +90,14 @@ Whenever you feel like you need to completely re-install Node and NPM, simply ex
 
     Usage:	node-reinstall [--nave|--nvm|--nvm-latest] [-h|--help] [-v|--version] [NODE_VERSION]
 
+## Test
+
+Run the BATS suite with:
+
+```bash
+make test
+```
+
 ## Commands
 
 	node-reinstall					re-install node and npm using nvm
