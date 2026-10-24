@@ -1,0 +1,8 @@
+language: minimal
+dist: jammy
+install: skip
+before_script:
+  - git clone --depth 1 --branch v1.14.0 https://github.com/bats-core/bats-core.git .test-tools/bats-core
+  - test "$(git -C .test-tools/bats-core rev-parse HEAD)" = eb7f42f8d608ac693d7a4b67474f6714ea68cfc5
+script:
+  - sudo unshare --net -- bash -euc 'python3 test/assert-no-network.py; make test BATS="$PWD/.test-tools/bats-core/bin/bats"'

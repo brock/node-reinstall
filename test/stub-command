@@ -1,0 +1,105 @@
+#!/bin/bash
+# Recording doubles only: never invoke sudo, rm, curl, Bash payloads, Node or npm.
+set -eu
+name="${0##*/}"
+
+reject() {
+  printf 'rejected %q: ' "$name" >> "$TEST_VIOLATIONS"
+  printf '%q ' "$@" >> "$TEST_VIOLATIONS"
+  printf '\n' >> "$TEST_VIOLATIONS"
+  printf 'STUB REJECTED: %s\n' "$name" >&2
+  exit 97
+}
+
+record() {
+  local line
+  printf -v line '%q ' "$name" "$@"
+  printf '%s\n' "$line" >> "$TEST_LOG"
+}
+
+check_removal() {
+  [[ "${1-}" == '-rf' && "$#" -gt 1 ]] || reject "$@"
+  shift
+  local path
+  for path in "$@"; do
+    # Lexical descendants only; no real deletion is performed, even here.
+    [[ "$path" != *'/../'* && "$path" != */.. ]] || reject "$path"
+    case "$path" in
+      "$TEST_HOME/"*|"$TEST_PREFIX/"*) ;;
+      *) reject "$path" ;;
+    esac
+  done
+}
+
+case "$name" in
+  sudo)
+    if [[ "$#" -eq 1 && "$1" == '-v' ]]; then :
+    elif [[ "${1-}" == rm ]]; then check_removal "${@:2}"
+    else reject "$@"; fi
+    record "$@"
+    ;;
+  rm)
+    check_removal "$@"
+    record "$@"
+    ;;
+  node)
+    [[ "$#" -eq 1 && "$1" == --version ]] || reject "$@"
+    record "$@"
+    [[ -n "${TEST_NODE_VERSION-}" ]] || exit 127
+    printf '%s\n' "$TEST_NODE_VERSION"
+    ;;
+  which)
+    [[ "$#" -eq 1 && "$1" == npm ]] || reject "$@"
+    record "$@"
+    [[ "${TEST_HAS_NPM-0}" == 1 ]] || exit 1
+    printf '%s/npm\n' "$TEST_BIN"
+    ;;
+  npm)
+    if [[ "$#" -eq 5 && "$*" == '-g list --depth 0 --parseable' ]]; then
+      record "$@"
+      printf '%s\n' "$TEST_NPM_LIST"
+    elif [[ "$#" -ge 3 && "$1" == install && "$2" == --global ]]; then
+      record "$@"
+    else reject "$@"; fi
+    ;;
+  nvm)
+    if [[ "$#" -eq 2 && "$1" == install ]]; then :
+    elif [[ "$#" -eq 3 && "$1" == alias && "$2" == default ]]; then :
+    else reject "$@"; fi
+    record "$@"
+    ;;
+  nave)
+    [[ "$#" -eq 2 && "$1" == usemain ]] || reject "$@"
+    record "$@"
+    ;;
+  curl)
+    record "$@"
+    if [[ "$#" -eq 3 && "$1" == -H && "$2" == 'Accept: application/vnd.github.v3+json' && "$3" == https://api.github.com/repos/nvm-sh/nvm/releases/latest ]]; then
+      printf '{"tag_name":"v0.40.4"}\n'
+    elif [[ "$#" -eq 2 && "$1" == -o- ]]; then
+      case "$2" in
+        https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh|https://raw.githubusercontent.com/nvm-sh/nvm//install.sh)
+          # The empty-version URL is an existing parsing defect, not a valid
+          # download. Both are inert inputs for sequencing tests; see test/README.
+          printf 'INERT_NVM_INSTALLER_FIXTURE\n' ;;
+        *) reject "$@" ;;
+      esac
+    elif [[ "$#" -eq 4 && "$1" == -sL && "$2" == https://raw.githubusercontent.com/isaacs/nave/master/nave.sh && "$3" == -o && "$4" == "$TEST_PREFIX/bin/nave" ]]; then
+      : # No download and no output file.
+    else reject "$@"; fi
+    ;;
+  bash)
+    [[ "$#" -eq 0 ]] || reject "$@"
+    IFS= read -r marker || reject 'missing inert marker'
+    [[ "$marker" == INERT_NVM_INSTALLER_FIXTURE ]] || reject 'unexpected piped input'
+    if IFS= read -r extra; then reject 'extra piped input'; fi
+    record 'consumed inert marker; no execution'
+    ;;
+  xargs)
+    [[ "$#" -eq 1 && "$1" == basename ]] || reject "$@"
+    record "$@"
+    # Keep GNU basename/xargs behavior; do not fix production module parsing here.
+    exec "$REAL_XARGS" basename
+    ;;
+  *) reject "$@" ;;
+esac

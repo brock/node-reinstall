@@ -1,0 +1,35 @@
+name: Bats tests
+on:
+  push:
+    branches: [master, codex/bats-tests-r818]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Fetch pinned Bats source
+        run: |
+          git clone --depth 1 --branch v1.14.0 https://github.com/bats-core/bats-core.git .test-tools/bats-core
+          test "$(git -C .test-tools/bats-core rev-parse HEAD)" = eb7f42f8d608ac693d7a4b67474f6714ea68cfc5
+      - name: Source and syntax
+        run: |
+          git rev-parse HEAD 'HEAD^{tree}'
+          sha256sum node-reinstall Makefile test/helper.bash test/guard-env.bash test/stub-command test/run.bash test/node-reinstall.bats test/assert-no-network.py
+          bash --version | head -n 1
+          .test-tools/bats-core/bin/bats --version
+          bash -n node-reinstall test/helper.bash test/guard-env.bash test/stub-command test/run.bash
+          git diff --check
+      - name: Run isolated unit tests
+        run: |
+          sudo unshare --net -- bash -euc '
+            python3 test/assert-no-network.py
+            make test BATS="$PWD/.test-tools/bats-core/bin/bats"
+          '
+          git diff --exit-code

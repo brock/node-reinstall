@@ -1,6 +1,7 @@
 BIN ?= node-reinstall
 PREFIX ?= /usr/local
 USAGE ?= $$(./node-reinstall -h | grep "Usage:")
+BATS ?= bats
 
 install:
 	cp node-reinstall $(PREFIX)/bin/$(BIN)
@@ -15,3 +16,7 @@ readme:
 	echo "## Commands" >> README.md
 	echo '' >> README.md
 	./node-reinstall -h | sed -n -e '/Commands:/,// p' | tail -n +3 >> README.md
+
+.PHONY: test
+test:
+	BATS="$(BATS)" bash test/run.bash

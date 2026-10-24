@@ -33,6 +33,14 @@ This is a complete (and very destructive) tool for re-installing Node.js on OSX 
 
 It also works as a first-time installer.
 
+## Tests
+
+Run `make test` with [Bats-core](https://github.com/bats-core/bats-core) installed,
+or set `BATS=/path/to/bats`. See [test/README.md](test/README.md) for the pinned
+setup, containment and coverage. Tests use recording installer dependencies;
+they do not delete Node installations or download/run installers. Travis and
+GitHub Actions configurations are included.
+
 ## Installation
 
 ### Clone this Repo
