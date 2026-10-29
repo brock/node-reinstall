@@ -1,0 +1,11 @@
+language: minimal
+os: linux
+arch: arm64
+dist: jammy
+
+before_script:
+  - git clone --depth 1 --branch v1.12.0 https://github.com/bats-core/bats-core.git "$HOME/bats-core"
+  - test "$(git -C "$HOME/bats-core" rev-parse HEAD)" = 713504bc0224a19b3d7c7958c18dc07f64f54b44
+
+script:
+  - make test BATS="$HOME/bats-core/bin/bats"

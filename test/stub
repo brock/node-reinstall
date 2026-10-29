@@ -1,0 +1,62 @@
+#!/bin/bash
+# Never delegate to sudo, rm, curl, npm or either real version manager.
+command=${0##*/}
+reject() {
+  printf 'Rejected %s request: %s\n' "$command" "$*" >> "$TRACE.rejected"
+  exit 90
+}
+
+{
+  printf '%s' "$command"
+  printf ' %s' "$@"
+  printf '\n'
+} >> "$TRACE"
+
+case "$command" in
+  sudo)
+    case "$1" in
+      -v) exit 0 ;;
+      rm) shift ;; # Validate the request below; never execute it.
+      *) reject "$@" ;;
+    esac
+    ;;
+  rm) ;;
+  node)
+    [[ "$1" == --version ]] || reject "$@"
+    [[ -n "$INSTALLED_VERSION" ]] || exit 127
+    printf '%s\n' "$INSTALLED_VERSION"
+    exit 0
+    ;;
+  which)
+    [[ "$1" == npm && "$NPM_PRESENT" == 1 ]] || exit 1
+    printf '%s/npm\n' "$PATH"
+    exit 0
+    ;;
+  npm)
+    if [[ "$*" == '-g list --depth 0 --parseable' ]]; then
+      printf '%s/lib\n' "$PREFIX"
+      if [[ "$GLOBAL_MODULES_FIXTURE" == 1 ]]; then
+        for module in npm typescript @scope/tool; do
+          printf '%s/lib/node_modules/%s\n' "$PREFIX" "$module"
+        done
+      fi
+    elif [[ "$*" != 'install --global typescript @scope/tool' ]]; then
+      reject "$@"
+    fi
+    exit 0
+    ;;
+  curl|nvm|nave)
+    # curl supplies no executable payload and never makes a network request.
+    exit 0
+    ;;
+  *) reject "$@" ;;
+esac
+
+[[ "$1" == -rf ]] || reject "$@"
+shift
+for path in "$@"; do
+  case "$path" in
+    "$HOME"/*|"$PREFIX"/*) ;;
+    *) reject "$path" ;;
+  esac
+done

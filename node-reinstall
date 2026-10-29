@@ -136,7 +136,14 @@ else
   echo "Completely reinstalling Node, npm."
   # get list of global npm modules to reinstall
   # omit the lib directory listing
-  GLOBAL_MODULES=`npm -g list --depth 0 --parseable | xargs basename | sed -E 's/^(lib|npm)$//g'`
+  GLOBAL_MODULES=$(npm -g list --depth 0 --parseable | while IFS= read -r module_path; do
+    case "$module_path" in
+      */node_modules/*)
+        module_name="${module_path##*/node_modules/}"
+        [ "$module_name" = npm ] || printf '%s\n' "$module_name"
+        ;;
+    esac
+  done)
   if [[ -n $GLOBAL_MODULES ]]; then
     echo "Will reinstall these global npm modules:"
     echo $GLOBAL_MODULES
